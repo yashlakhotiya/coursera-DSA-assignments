@@ -4,8 +4,10 @@
 
 using std::vector;
 
-long long max_dot_product(vector<int> a, vector<int> b) {
+long long max_dot_product(vector<long long> a, vector<long long> b) {
   // write your code here
+  sort(a.begin(),a.end());
+  sort(b.begin(),b.end());
   long long result = 0;
   for (size_t i = 0; i < a.size(); i++) {
     result += ((long long) a[i]) * b[i];
@@ -16,7 +18,7 @@ long long max_dot_product(vector<int> a, vector<int> b) {
 int main() {
   size_t n;
   std::cin >> n;
-  vector<int> a(n), b(n);
+  vector<long long> a(n), b(n);
   for (size_t i = 0; i < n; i++) {
     std::cin >> a[i];
   }

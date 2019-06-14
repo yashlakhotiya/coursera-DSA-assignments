@@ -5,7 +5,28 @@ using std::vector;
 
 int lcs3(vector<int> &a, vector<int> &b, vector<int> &c) {
   //write your code here
-  return std::min(std::min(a.size(), b.size()), c.size());
+  int x = a.size()+1;
+  int y = b.size()+1;
+  int z = c.size()+1;
+  
+  int vect[x][y][z];
+  
+  for(int i = 0;i < x; i++){
+  	for(int j = 0;j < y; j++){
+  		for(int k = 0;k < z; k++){
+  			if(i == 0 || j == 0|| k == 0){
+  				vect[i][j][k] = 0;
+  			}
+  			else if(a[i-1] == b[j-1] && a[i-1] == c[k-1]){
+  				vect[i][j][k] = 1 + vect[i-1][j-1][k-1];
+  			}
+  			else{
+  				vect[i][j][k] = std::max(std::max(vect[i-1][j][k],vect[i][j-1][k]),vect[i][j][k-1]);
+  			}
+  		}
+  	}
+  }
+  return vect[x-1][y-1][z-1];
 }
 
 int main() {
