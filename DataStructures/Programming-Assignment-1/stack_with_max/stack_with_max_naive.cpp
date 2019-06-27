@@ -11,39 +11,51 @@ using std::cout;
 using std::max_element;
 
 class StackWithMax {
-    vector<int> stack;
+    vector<size_t> stack_main;
+    vector<size_t> stack_aux;
+    size_t max;
 
   public:
 
-    void Push(int value) {
-        stack.push_back(value);
+    void Push(size_t value) {
+    	if(stack_main.empty()){
+    		max = value;
+        	stack_main.push_back(value);
+        	stack_aux.push_back(value);
+    	}
+    	else{
+    		if(max < value) max = value;
+    		stack_main.push_back(value);
+    		stack_aux.push_back(max);
+    	}
     }
 
     void Pop() {
-        assert(stack.size());
-        stack.pop_back();
+        //assert(stack_main.size());
+        stack_main.pop_back();
+        stack_aux.pop_back();
     }
 
-    int Max() const {
-        assert(stack.size());
-        return *max_element(stack.begin(), stack.end());
+    size_t Max(){
+        //assert(stack_main.size());
+        return *(stack_aux.end()-1);
     }
 };
 
 int main() {
-    int num_queries = 0;
+    size_t num_queries = 0;
     cin >> num_queries;
 
     string query;
-    string value;
+    size_t value;
 
     StackWithMax stack;
-
-    for (int i = 0; i < num_queries; ++i) {
+    StackWithMax aux;
+    for (size_t i = 0; i < num_queries; ++i) {
         cin >> query;
         if (query == "push") {
             cin >> value;
-            stack.Push(std::stoi(value));
+            stack.Push(value);
         }
         else if (query == "pop") {
             stack.Pop();

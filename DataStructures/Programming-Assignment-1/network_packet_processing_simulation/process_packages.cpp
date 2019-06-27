@@ -31,6 +31,7 @@ public:
 
     Response Process(const Request &request) {
         // write your code here
+        
     }
 private:
     int size_;
